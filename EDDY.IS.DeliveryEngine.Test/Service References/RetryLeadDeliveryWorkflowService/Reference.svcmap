@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f4ceab20-2cab-4869-9d25-8262528ccab2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/EDDY.IS.DeliveryEngine.Workflow.Service/RetryLeadDeliveryWorkflowService.xamlx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RetryLeadDeliveryWorkflowService.xsd" MetadataType="Schema" ID="f57687c0-5bf7-4b13-878a-0420836c8a13" SourceId="1" SourceUrl="http://localhost/EDDY.IS.DeliveryEngine.Workflow.Service/RetryLeadDeliveryWorkflowService.xamlx?xsd=xsd2" />
+    <MetadataFile FileName="RetryDeliveryService.wsdl" MetadataType="Wsdl" ID="80a1aebf-9414-486e-80df-b09114e1f023" SourceId="1" SourceUrl="http://localhost/EDDY.IS.DeliveryEngine.Workflow.Service/RetryLeadDeliveryWorkflowService.xamlx?wsdl" />
+    <MetadataFile FileName="RetryLeadDeliveryWorkflowService1.xsd" MetadataType="Schema" ID="2bb7fd1e-7caf-48a6-ac90-9882084fb589" SourceId="1" SourceUrl="http://localhost/EDDY.IS.DeliveryEngine.Workflow.Service/RetryLeadDeliveryWorkflowService.xamlx?xsd=xsd1" />
+    <MetadataFile FileName="RetryLeadDeliveryWorkflowService2.xsd" MetadataType="Schema" ID="c618c754-e179-40b6-8778-d96a996e79a9" SourceId="1" SourceUrl="http://localhost/EDDY.IS.DeliveryEngine.Workflow.Service/RetryLeadDeliveryWorkflowService.xamlx?xsd=xsd3" />
+    <MetadataFile FileName="RetryLeadDeliveryWorkflowService.disco" MetadataType="Disco" ID="797cebef-2a9e-4696-8f1c-da1b8905ca7d" SourceId="1" SourceUrl="http://localhost/EDDY.IS.DeliveryEngine.Workflow.Service/RetryLeadDeliveryWorkflowService.xamlx?disco" />
+    <MetadataFile FileName="RetryLeadDeliveryWorkflowService3.xsd" MetadataType="Schema" ID="410ec671-a53d-40ce-b425-037a346ea1f5" SourceId="1" SourceUrl="http://localhost/EDDY.IS.DeliveryEngine.Workflow.Service/RetryLeadDeliveryWorkflowService.xamlx?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

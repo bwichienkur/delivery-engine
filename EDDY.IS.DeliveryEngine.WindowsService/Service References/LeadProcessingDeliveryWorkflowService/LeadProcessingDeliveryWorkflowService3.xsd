@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/EDDY.IS.DeliveryEngine.Entity.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/EDDY.IS.DeliveryEngine.Entity.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/LeadProcessingDeliveryWorkflowService.xamlx?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="CommonEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedBy" type="xs:int" />
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CurrentCSR" type="xs:int" />
+      <xs:element minOccurs="0" name="CurrentUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RowGuid" type="ser:guid" />
+      <xs:element minOccurs="0" name="UpdatedBy" type="xs:int" />
+      <xs:element minOccurs="0" name="UpdatedDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CommonEntity" nillable="true" type="tns:CommonEntity" />
+</xs:schema>

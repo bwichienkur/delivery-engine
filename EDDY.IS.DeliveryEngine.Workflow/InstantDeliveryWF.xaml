@@ -1,0 +1,159 @@
+﻿<Activity mc:Ignorable="sap" x:Class="EDDY.IS.DeliveryEngine.Workflow.InstantDeliveryWF" 
+	xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" 
+	xmlns:enbda="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Activities;assembly=EDDY.IS.DeliveryEngine.Workflow.Activities" 
+	xmlns:enec="clr-namespace:EDDY.IS.DeliveryEngine.Entity;assembly=EDDY.IS.DeliveryEngine.Entity" 
+	xmlns:enec1="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+	xmlns:eneic="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Interface.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+	xmlns:local="clr-namespace:EDDY.IS.DeliveryEngine.Workflow" 
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" 
+	xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" 
+	xmlns:s="clr-namespace:System;assembly=mscorlib" 
+	xmlns:s1="clr-namespace:System;assembly=System" 
+	xmlns:s2="clr-namespace:System;assembly=System.Xml" 
+	xmlns:s3="clr-namespace:System;assembly=System.Core" 
+	xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" 
+	xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" 
+	xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" 
+	xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" 
+	xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" 
+	xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" 
+	xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" 
+	xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" 
+	xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" 
+	xmlns:sd="clr-namespace:System.Data;assembly=System.Data" 
+	xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" 
+	xmlns:st="clr-namespace:System.Text;assembly=mscorlib" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="LeadData" Type="InArgument(enec:DeliveryLeadData)" />
+    <x:Property Name="LeadRealtimeDeliveryStatus" Type="OutArgument(x:Int32)" />
+    <x:Property Name="SchoolValidationResponseStatus" Type="OutArgument(x:Int32)" />
+    <x:Property Name="ReviewedStatusID" Type="InArgument(x:Int32)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>894,1754</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence DisplayName="Instant Delivery Sequence" sad:XamlDebuggerXmlReader.FileName="C:\TFS_NEXUS\Nexus\LeadDeliveryVerification-Ph3\src\WorkFlow\DE\InstantDeliveryWF.xaml" sap:VirtualizedContainerService.HintSize="854,1714">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="enec:DeliveryDefinition" Name="DeliveryDefinition" />
+      <Variable x:TypeArguments="scg3:List(x:Int32)" Name="RealtimeEndpointStatuses" />
+      <Variable x:TypeArguments="x:Boolean" Name="IsBeta" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign sap:VirtualizedContainerService.HintSize="832,58">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Boolean">[IsBeta]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Boolean">[LeadData.IsBeta]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Default Status of 110" sap:VirtualizedContainerService.HintSize="832,58">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[LeadRealtimeDeliveryStatus]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">110</InArgument>
+      </Assign.Value>
+    </Assign>
+    <enbda:WriteToDELog DeliveryEndpointId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="0" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="832,22" LeadData="[LeadData]" Message="[&quot;Beginning InstantDeliveryWF for LeadId: &quot; + LeadData.LeadId.ToString()]" Verbosity="3" />
+    <enbda:GetDeliveryDefinition DeliveryDefinition="[DeliveryDefinition]" sap:VirtualizedContainerService.HintSize="832,22" LeadData="[LeadData]" />
+    <If Condition="[IsNothing(DeliveryDefinition)]" sap:VirtualizedContainerService.HintSize="832,1208">
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="264,1102">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign DisplayName="Assign Status for No Delivery Found" sap:VirtualizedContainerService.HintSize="242,58">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Int32">[LeadRealtimeDeliveryStatus]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Int32">444</InArgument>
+            </Assign.Value>
+          </Assign>
+          <enbda:WriteToDELog DeliveryEndpointId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="40" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="242,22" LeadData="[LeadData]" Message="[&quot;No Delivery Definition found for LeadId: &quot; + LeadData.LeadId.ToString() + &quot; - CRId: &quot; + LeadData.CRId.ToString()]" Verbosity="1" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Found Definition Sequence" sap:VirtualizedContainerService.HintSize="543,1102">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <enbda:WriteToDELog DeliveryEndpointId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="20" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="521,22" LeadData="[LeadData]" Message="[&quot;Found Delivery Definition: &quot; + DeliveryDefinition.DeliveryDefinitionId.ToString()]" Verbosity="5" />
+          <enbda:UpdateLeadDelivery EndpointsAdded="{x:Null}" DeliveryDefinitionId="[DeliveryDefinition.DeliveryDefinitionId]" sap:VirtualizedContainerService.HintSize="521,22" IsBeta="[IsBeta]" LeadId="[LeadData.LeadId]" />
+          <enbda:WriteToDELog DeliveryEndpointId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="521,22" LeadData="[LeadData]" Message="[&quot;Updated Lead Table with DeliveryDefinitionId: &quot; + DeliveryDefinition.DeliveryDefinitionId.ToString()]" Verbosity="7" />
+          <ForEach x:TypeArguments="enec:DeliveryEndpoint" DisplayName="ForEach&lt;deliveryEndpoint&gt;" sap:VirtualizedContainerService.HintSize="521,792" Values="[DeliveryDefinition.EndPoints]">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg3:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ActivityAction x:TypeArguments="enec:DeliveryEndpoint">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="enec:DeliveryEndpoint" Name="deliveryEndpoint" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Endpoint Sequence" sap:VirtualizedContainerService.HintSize="491,686">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="enec:RealtimeDeliveryQueueItem" Name="RDQItem" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If Condition="[deliveryEndpoint.IsRealtime]" DisplayName="If Endpoint is Realtime" sap:VirtualizedContainerService.HintSize="469,562">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence DisplayName="Endpoint Is Realtime Sequence" sap:VirtualizedContainerService.HintSize="222,456">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Int32" Name="CurrentEndpointStatus" />
+                        <Variable x:TypeArguments="x:Int32" Name="_ReviewedStatusID" />
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg3:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <enbda:CreateRDQItem DeliveryEndpointId="[deliveryEndpoint.DeliveryEndpointId]" sap:VirtualizedContainerService.HintSize="200,22" IsBeta="[IsBeta]" LeadId="[LeadData.LeadId]" RDQItem="[RDQItem]" />
+                      <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="50" DeliveryEndpointId="[deliveryEndpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[LeadData]" Message="[&quot;Wrote Record to RDQ for Lead: &quot; + LeadData.LeadId.ToString() + &quot; - Endpoint&quot; + deliveryEndpoint.DeliveryEndpointId.ToString()]" Verbosity="5" />
+                      <local:RealtimeEndpointWF DeliveryEndpoint="[deliveryEndpoint]" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[LeadData]" RDQItem="[RDQItem]" RealtimeEndpointDeliveryStatus="[CurrentEndpointStatus]" ReviewedStatusID="[_ReviewedStatusID]" SchoolValidationResponseStatus="[SchoolValidationResponseStatus]" />
+                      <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="50" DeliveryEndpointId="[deliveryEndpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[LeadData]" Message="[&quot;Completed Realtime Endpoint WF for Endpoint: &quot; + deliveryEndpoint.DeliveryEndpointId.ToString() + &quot;. WF Returned: &quot; + CurrentEndpointStatus.ToString()]" Verbosity="3" />
+                      <enbda:AdjustLeadRealtimeStatus CurrentRealtimeEndpointStatus="[CurrentEndpointStatus]" Endpoint="[deliveryEndpoint]" sap:VirtualizedContainerService.HintSize="200,22" LeadRealtimeDeliveryStatus="[LeadRealtimeDeliveryStatus]" ReviewedStatusID="[_ReviewedStatusID]" />
+                      <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="70" DeliveryEndpointId="[deliveryEndpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[LeadData]" Message="Real Time Status Adjusted" Verbosity="5" />
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence sap:VirtualizedContainerService.HintSize="222,456">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg3:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="60" DeliveryEndpointId="[deliveryEndpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[LeadData]" Message="[&quot;Lead: &quot; &amp; LeadData.LeadId &amp; &quot; is for batch delivery&quot;]" Verbosity="5" />
+                    </Sequence>
+                  </If.Else>
+                </If>
+              </Sequence>
+            </ActivityAction>
+          </ForEach>
+        </Sequence>
+      </If.Else>
+    </If>
+    <enbda:WriteToDELog DeliveryEndpointId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="80" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="832,22" LeadData="[LeadData]" Message="[&quot;Completed InstantDeliveryWF for LeadId: &quot; + LeadData.LeadId.ToString() + &quot;. Status: &quot; + LeadRealtimeDeliveryStatus.ToString()]" Verbosity="1" />
+  </Sequence>
+</Activity>

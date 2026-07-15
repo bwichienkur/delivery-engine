@@ -1,0 +1,12 @@
+obj\Debug\BatchDeliveryWF.g.xaml
+obj\Debug\InstantDeliveryWF.g.xaml
+obj\Debug\InstantEmailWF.g.xaml
+obj\Debug\InstantPostWF.g.xaml
+obj\Debug\RealtimeEndpointWF.g.xaml
+obj\Debug\RealtimePreviewWF.g.xaml
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_BatchDeliveryWF_BeforeInitializeComponentHelper.txt
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_InstantDeliveryWF_BeforeInitializeComponentHelper.txt
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_InstantEmailWF_BeforeInitializeComponentHelper.txt
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_InstantPostWF_BeforeInitializeComponentHelper.txt
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_RealtimeEndpointWF_BeforeInitializeComponentHelper.txt
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_RealtimePreviewWF_BeforeInitializeComponentHelper.txt

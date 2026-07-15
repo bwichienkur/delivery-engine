@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/EDDY.IS.DeliveryEngine.Entity" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/EDDY.IS.DeliveryEngine.Entity" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/EDDY.IS.DeliveryEngine.Workflow.Service/RetryLeadDeliveryWorkflowService.xamlx?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost/EDDY.IS.DeliveryEngine.Workflow.Service/RetryLeadDeliveryWorkflowService.xamlx?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/EDDY.IS.DeliveryEngine.Entity.Common" />
+  <xs:complexType name="RealtimeDeliveryQueueItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CurrentDeliveryAttempts" type="xs:int" />
+      <xs:element minOccurs="0" name="DeliveryEngineMachineKey" type="ser:guid" />
+      <xs:element minOccurs="0" name="DeliveryEngineMachineName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeliveryStatusId" type="xs:int" />
+      <xs:element minOccurs="0" name="EndpointId" type="xs:int" />
+      <xs:element minOccurs="0" name="LastDeliveryAttemptDatetime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LeadId" type="xs:int" />
+      <xs:element minOccurs="0" name="NextDeliveryAttemptDatetime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RealtimeDeliveryQueueId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RealtimeDeliveryQueueItem" nillable="true" type="tns:RealtimeDeliveryQueueItem" />
+  <xs:complexType name="DeliveryLeadData">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:LeadProcessingEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="TransformedNameValuePairsDictionaryXML" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DeliveryLeadData" nillable="true" type="tns:DeliveryLeadData" />
+  <xs:complexType name="LeadProcessingEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:LeadEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ApplicationId" type="xs:int" />
+          <xs:element minOccurs="0" name="BusinessCategoryId" type="xs:int" />
+          <xs:element minOccurs="0" name="BusinessModelId" type="xs:int" />
+          <xs:element minOccurs="0" name="CampaignId" type="xs:int" />
+          <xs:element minOccurs="0" name="ChannelId" type="xs:int" />
+          <xs:element minOccurs="0" name="ConsumerLeadId" type="xs:int" />
+          <xs:element minOccurs="0" name="ProfileId" type="xs:int" />
+          <xs:element minOccurs="0" name="ProgramLevelId" type="xs:int" />
+          <xs:element minOccurs="0" name="ProgramTypeId" type="xs:int" />
+          <xs:element minOccurs="0" name="SchoolId" type="xs:int" />
+          <xs:element minOccurs="0" name="SiteId" type="xs:int" />
+          <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SubjectId" type="xs:int" />
+          <xs:element minOccurs="0" name="TrackingId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserDataList" nillable="true" type="tns:ArrayOfUserData" />
+          <xs:element minOccurs="0" name="UserExperienceList" nillable="true" type="tns:ArrayOfUserExperience" />
+          <xs:element minOccurs="0" name="VendorId" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LeadProcessingEntity" nillable="true" type="tns:LeadProcessingEntity" />
+  <xs:complexType name="LeadEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/EDDY.IS.DeliveryEngine.Entity.Common" base="q1:CommonEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdditionalFieldXml" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AdditionalFieldsDictionaryXml" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AdditionalLeadDataList" nillable="true" type="tns:ArrayOfAdditionalLeadData" />
+          <xs:element minOccurs="0" name="Address1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Address2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AffiliateId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Age" type="xs:int" />
+          <xs:element minOccurs="0" name="AllowRepost" type="xs:boolean" />
+          <xs:element minOccurs="0" name="AllowRepostTimeHours" type="xs:int" />
+          <xs:element minOccurs="0" name="ApplicationId" type="xs:int" />
+          <xs:element minOccurs="0" name="BetaLead" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BillingDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="CMID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CRId" type="xs:int" />
+          <xs:element minOccurs="0" name="CampusApplicationId" type="xs:int" />
+          <xs:element minOccurs="0" name="CampusId" type="xs:int" />
+          <xs:element minOccurs="0" name="CampusName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CampusProgramId" type="xs:int" />
+          <xs:element minOccurs="0" name="CampusValue" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CategoryId" type="xs:int" />
+          <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ClientCampusRelationshipId" type="xs:int" />
+          <xs:element minOccurs="0" name="CountryCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="EduLevelId" type="xs:int" />
+          <xs:element minOccurs="0" name="EmailAddress" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalLeadId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FormUniqueId" type="xs:int" />
+          <xs:element minOccurs="0" name="HighestLevelOfEdu" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="InitialLeadId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="InstitutionApplicationId" type="xs:int" />
+          <xs:element minOccurs="0" name="IsBeta" type="xs:boolean" />
+          <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LeadEditNoteId" type="xs:int" />
+          <xs:element minOccurs="0" name="LeadEditNoteText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LeadId" type="xs:int" />
+          <xs:element minOccurs="0" name="LegacyLeadId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MethodOfContact" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MiddleName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Military" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MilitaryStatusId" type="xs:int" />
+          <xs:element minOccurs="0" name="PSIId" type="xs:int" />
+          <xs:element minOccurs="0" name="Phone1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Phone2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Prefix" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProductId" type="xs:int" />
+          <xs:element minOccurs="0" name="ProgramApplicationId" type="xs:int" />
+          <xs:element minOccurs="0" name="ProgramCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProgramId" type="xs:int" />
+          <xs:element minOccurs="0" name="ProgramName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProgramProductId" type="xs:int" />
+          <xs:element minOccurs="0" name="PsiName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RawPostDataId" type="xs:long" />
+          <xs:element minOccurs="0" name="RealTimeDeliveryStatusId" type="xs:int" />
+          <xs:element minOccurs="0" name="RealTimeDeliveryStatusName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SessionId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SessionInternalId" type="xs:int" />
+          <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StateProvince" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TimeToStartInWeeks" type="xs:int" />
+          <xs:element minOccurs="0" name="TrackId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TrackingCampaignName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TrackingSessionGUID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TransactionId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Tsource" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="VisitorId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="VisitorInternalId" type="xs:int" />
+          <xs:element minOccurs="0" name="YearHighestEduCompleted" type="xs:int" />
+          <xs:element minOccurs="0" name="ZipCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LeadEntity" nillable="true" type="tns:LeadEntity" />
+  <xs:complexType name="ArrayOfAdditionalLeadData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AdditionalLeadData" nillable="true" type="tns:AdditionalLeadData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAdditionalLeadData" nillable="true" type="tns:ArrayOfAdditionalLeadData" />
+  <xs:complexType name="AdditionalLeadData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ControlId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Label" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AdditionalLeadData" nillable="true" type="tns:AdditionalLeadData" />
+  <xs:complexType name="ArrayOfUserData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserData" nillable="true" type="tns:UserData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserData" nillable="true" type="tns:ArrayOfUserData" />
+  <xs:complexType name="UserData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserData" nillable="true" type="tns:UserData" />
+  <xs:complexType name="ArrayOfUserExperience">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserExperience" nillable="true" type="tns:UserExperience" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserExperience" nillable="true" type="tns:ArrayOfUserExperience" />
+  <xs:complexType name="UserExperience">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserExperience" nillable="true" type="tns:UserExperience" />
+</xs:schema>

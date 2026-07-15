@@ -1,0 +1,2 @@
+InstantEmailWF.g.xaml
+XamlStaticHelperNamespace._XamlStaticHelper

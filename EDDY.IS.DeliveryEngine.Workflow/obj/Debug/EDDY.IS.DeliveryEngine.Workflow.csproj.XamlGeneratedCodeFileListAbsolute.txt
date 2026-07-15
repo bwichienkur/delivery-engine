@@ -1,0 +1,13 @@
+obj\Debug\_EDDY.IS.DeliveryEngine.Workflow.g.cs
+obj\Debug\BatchDeliveryWF.g.cs
+obj\Debug\InstantDeliveryWF.g.cs
+obj\Debug\InstantEmailWF.g.cs
+obj\Debug\InstantPostWF.g.cs
+obj\Debug\RealtimeEndpointWF.g.cs
+obj\Debug\RealtimePreviewWF.g.cs
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_BatchDeliveryWF_BeforeInitializeComponentHelper.cs
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_InstantDeliveryWF_BeforeInitializeComponentHelper.cs
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_InstantEmailWF_BeforeInitializeComponentHelper.cs
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_InstantPostWF_BeforeInitializeComponentHelper.cs
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_RealtimeEndpointWF_BeforeInitializeComponentHelper.cs
+obj\Debug\EDDY.IS.DeliveryEngine.Workflow_RealtimePreviewWF_BeforeInitializeComponentHelper.cs

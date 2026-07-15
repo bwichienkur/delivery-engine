@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{088A0D16-F4FD-4AA4-808B-9B0357DAF489}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EDDY.IS.DeliveryEngine.Workflow.Activities</RootNamespace>
+    <AssemblyName>EDDY.IS.DeliveryEngine.Workflow.Activities</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EDDY.Nexus.Common.ExceptionHandler, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\EDDY.Nexus.Common.ExceptionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="EDDY.Nexus.Common.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\EDDY.Nexus.Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="EDDY.Nexus.Common.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\EDDY.Nexus.Common.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WinSCPnet, Version=1.3.7.7333, Culture=neutral, PublicKeyToken=2271ec4a3c56d0bf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\WinSCPnet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdjustLeadRealtimeStatus.cs" />
+    <Compile Include="Cap\CapDistributionComponent.cs" />
+    <Compile Include="CheckEndpointBlackout.cs" />
+    <Compile Include="ConditionValidator\ConditionBC.cs" />
+    <Compile Include="ConditionValidator\GetZips.cs" />
+    <Compile Include="ConditionValidator\RemoteData.cs" />
+    <Compile Include="CreateBatchDelivery.cs" />
+    <Compile Include="CreateBatchLeadFile.cs" />
+    <Compile Include="CreateEmailBody.cs" />
+    <Compile Include="CreatePostData.cs" />
+    <Compile Include="CreateRDQItem.cs" />
+    <Compile Include="DeliverBatchEmail.cs" />
+    <Compile Include="DeliverBatchFTP.cs" />
+    <Compile Include="DeliverInstantEmail.cs" />
+    <Compile Include="DeliverInstantPost.cs" />
+    <Compile Include="FinalizeLeadDelivery.cs" />
+    <Compile Include="FinalizeLeadPreview.cs" />
+    <Compile Include="GetCap.cs" />
+    <Compile Include="GetDeliveryDefinition.cs" />
+    <Compile Include="GetDeliveryEndpoint.cs" />
+    <Compile Include="GetLeadData.cs" />
+    <Compile Include="GetLeadDeliveryStatus.cs" />
+    <Compile Include="GetLeadRealtimeStatusFromEndpointStatuses.cs" />
+    <Compile Include="GetLeadsForBatch.cs" />
+    <Compile Include="GetRDQsForProcessing.cs" />
+    <Compile Include="GetRealtimeLeadData.cs" />
+    <Compile Include="DataTransformation\AddFields.cs" />
+    <Compile Include="DataTransformation\AppendNameValuePair.cs" />
+    <Compile Include="DataTransformation\ApplyXsltForXml.cs" />
+    <Compile Include="DataTransformation\ChangeFieldNames.cs" />
+    <Compile Include="DataTransformation\DataTransformationBC.cs" />
+    <Compile Include="DataTransformation\FieldValueMapping.cs" />
+    <Compile Include="DataTransformation\FormatDateTime.cs" />
+    <Compile Include="DataTransformation\FormatTelephoneNumber.cs" />
+    <Compile Include="DataTransformation\MapValue.cs" />
+    <Compile Include="DataTransformation\RemoveFields.cs" />
+    <Compile Include="DataTransformation\SetEmailSubject.cs" />
+    <Compile Include="DataTransformation\SetEmailTo.cs" />
+    <Compile Include="DataTransformation\TargetedField.cs" />
+    <Compile Include="DataTransformation\Tasks.cs" />
+    <Compile Include="Helper\Email.cs" />
+    <Compile Include="Helper\ExceptionLoggingActivity.cs" />
+    <Compile Include="Helper\FTPSender.cs" />
+    <Compile Include="Helper\HTTPPost.cs" />
+    <Compile Include="Interface\Cap\ICapDistributionComponent.cs" />
+    <Compile Include="Interface\ConditionValidator\IConditionBC.cs" />
+    <Compile Include="Interface\ConditionValidator\IDataClass.cs" />
+    <Compile Include="Interface\DataTransformation\IDataTransformationBC.cs" />
+    <Compile Include="Interface\DataTransformation\IDataTransformationTask.cs" />
+    <Compile Include="Interface\ConditionValidator\IRemoteData.cs" />
+    <Compile Include="Interface\LeadScoring\ILeadScoringBusinessComponent.cs" />
+    <Compile Include="Interface\ProductProcessing\IProductProcessingTransactionManager.cs" />
+    <Compile Include="InterpretPostResponse.cs" />
+    <Compile Include="LeadScoring\LeadScoringBusinessComponent.cs" />
+    <Compile Include="LogBatchLead.cs" />
+    <Compile Include="LogBatchSent.cs" />
+    <Compile Include="LogFailedPost.cs" />
+    <Compile Include="LogFailedPostPreview.cs" />
+    <Compile Include="LogInstantEmailBlackedOut.cs" />
+    <Compile Include="LogInstantEmailFailed.cs" />
+    <Compile Include="LogInstantEmailPreviewFailed.cs" />
+    <Compile Include="LogInstantEmailPreviewSuccessful.cs" />
+    <Compile Include="LogInstantEmailSuccessful.cs" />
+    <Compile Include="LogInstantPostBlackedOut.cs" />
+    <Compile Include="LogSuccessfulPost.cs" />
+    <Compile Include="LogSuccessfulPreviewPost.cs" />
+    <Compile Include="PreviewError.cs" />
+    <Compile Include="ProductProcessing\ProductProcessingTransactionManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveRDQItem.cs" />
+    <Compile Include="RemoveRePost.cs" />
+    <Compile Include="TransformData.cs" />
+    <Compile Include="UpdateLeadDelivery.cs" />
+    <Compile Include="UpdateLeadDeliveryDefinition.cs" />
+    <Compile Include="UpdateLeadStatusIfLastRealtimeDelivery.cs" />
+    <Compile Include="UpdateRDQFailedStatus.cs" />
+    <Compile Include="UpdateRDQForBlackout.cs" />
+    <Compile Include="UpdateStatusForBatchIfPrimaryDelivery.cs" />
+    <Compile Include="WriteToDELog.cs" />
+    <Compile Include="WriteToRealtimeDELog.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EDDY.IS.DeliveryEngine.DataAccess\EDDY.IS.DeliveryEngine.DataAccess.csproj">
+      <Project>{2EBE8685-28D5-4B72-BC23-91D53BB88E82}</Project>
+      <Name>EDDY.IS.DeliveryEngine.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EDDY.IS.DeliveryEngine.Entity\EDDY.IS.DeliveryEngine.Entity.csproj">
+      <Project>{470AEA68-64FF-4B7F-8EBC-0151B0A75B59}</Project>
+      <Name>EDDY.IS.DeliveryEngine.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interface\Helper\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

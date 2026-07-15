@@ -1,0 +1,15 @@
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\EDDY.IS.DeliveryEngine.Entity.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\EDDY.IS.DeliveryEngine.Entity.pdb
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\EDDY.Nexus.Common.ExceptionHandler.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\EDDY.Nexus.Common.Utilities.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\bin\Debug\Microsoft.Practices.Unity.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\obj\Debug\EDDY.IS.DeliveryEngine.Entity.csprojAssemblyReference.cache
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\obj\Debug\EDDY.IS.DeliveryEngine.Entity.csproj.CoreCompileInputs.cache
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\obj\Debug\EDDY.IS.DeliveryEngine.Entity.csproj.CopyComplete
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\obj\Debug\EDDY.IS.DeliveryEngine.Entity.dll
+C:\STFS\EDDY\MAIN\EDDY.IS\DeliveryEngineService\EDDY.IS.DeliveryEngine.Entity\obj\Debug\EDDY.IS.DeliveryEngine.Entity.pdb

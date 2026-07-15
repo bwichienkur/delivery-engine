@@ -1,0 +1,127 @@
+﻿<Activity mc:Ignorable="sap" x:Class="EDDY.IS.DeliveryEngine.Workflow.InstantEmailWF" 
+		xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" 
+		xmlns:enbda="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Activities;assembly=EDDY.IS.DeliveryEngine.Workflow.Activities" 
+		xmlns:enec="clr-namespace:EDDY.IS.DeliveryEngine.Entity;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:enec1="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:eneic="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Interface.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" 
+		xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" 
+		xmlns:s="clr-namespace:System;assembly=mscorlib" 
+		xmlns:s1="clr-namespace:System;assembly=System" 
+		xmlns:s2="clr-namespace:System;assembly=System.Xml" 
+		xmlns:s3="clr-namespace:System;assembly=System.Core" 
+		xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" 
+		xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" 
+		xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" 
+		xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" 
+		xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" 
+		xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" 
+		xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" 
+		xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" 
+		xmlns:sd="clr-namespace:System.Data;assembly=System.Data" 
+		xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" 
+		xmlns:st="clr-namespace:System.Text;assembly=mscorlib" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Endpoint" Type="InOutArgument(enec:DeliveryEndpoint)" />
+    <x:Property Name="LeadData" Type="InArgument(enec:DeliveryLeadData)" />
+    <x:Property Name="RealtimeDeliveryItem" Type="InArgument(enec:RealtimeDeliveryQueueItem)" />
+    <x:Property Name="RealtimeEmailDeliveryStatus" Type="OutArgument(x:Int32)" />
+    <x:Property Name="SchoolValidationResponseStatus" Type="OutArgument(x:Int32)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>615,1464</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence DisplayName="Realtime Email Sequence" sad:XamlDebuggerXmlReader.FileName="C:\Projects\DeliveryBeta\src\WorkFlow\DE\InstantEmailWF.xaml" sap:VirtualizedContainerService.HintSize="575,1424">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="EmailBody" />
+      <Variable x:TypeArguments="x:Boolean" Name="Success" />
+      <Variable x:TypeArguments="x:Boolean" Name="IsBeta" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign sap:VirtualizedContainerService.HintSize="553,58">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Boolean">[IsBeta]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Boolean">[LeadData.IsBeta]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <enbda:TransformData Endpoint="[Endpoint]" sap:VirtualizedContainerService.HintSize="553,22" RawLeadData="[LeadData]" TransformedLeadData="[LeadData]" />
+    <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="230" DeliveryEndpointId="[Endpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="553,22" LeadData="[LeadData]" Message="Transformed Data." Verbosity="5" />
+    <enbda:CreateEmailBody EmailBody="[EmailBody]" Endpoint="[Endpoint]" sap:VirtualizedContainerService.HintSize="553,22" LeadData="[LeadData]" />
+    <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="250" DeliveryEndpointId="[Endpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="553,22" LeadData="[LeadData]" Message="[&quot;Created EmailBody: &quot; + EmailBody.Substring(0, 15) + &quot;...&quot;]" Verbosity="5" />
+    <enbda:DeliverInstantEmail EmailBody="[EmailBody]" Endpoint="[Endpoint]" sap:VirtualizedContainerService.HintSize="553,22" LeadData="[LeadData]" Success="[Success]" />
+    <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="270" DeliveryEndpointId="[Endpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="553,22" LeadData="[LeadData]" Message="[&quot;Email Attempted to: &quot; + CType(Endpoint, InstantEmailEndpoint).LiveEmailTo]" Verbosity="5" />
+    <Assign DisplayName="Increment CurrentDeliveryAttempts" sap:VirtualizedContainerService.HintSize="553,58">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[RealtimeDeliveryItem.CurrentDeliveryAttempts]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">[RealtimeDeliveryItem.CurrentDeliveryAttempts + 1]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="0" DeliveryEndpointId="[Endpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="553,22" LeadData="[LeadData]" Message="[&quot;Incremented Attempts to: &quot; + RealtimeDeliveryItem.CurrentDeliveryAttempts.ToString()]" Verbosity="7" />
+    <Assign DisplayName="Update Last Attempt DateTime" sap:VirtualizedContainerService.HintSize="553,58">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:DateTime">[RealtimeDeliveryItem.LastDeliveryAttemptDatetime]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:DateTime">[DateTime.Now.ToUniversalTime()]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="553,58">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[SchoolValidationResponseStatus]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">200</InArgument>
+      </Assign.Value>
+    </Assign>
+    <If Condition="[Success]" DisplayName="If Email Sent Successfully" sap:VirtualizedContainerService.HintSize="553,474">
+      <If.Then>
+        <Sequence DisplayName="Successful Email Sequence" sap:VirtualizedContainerService.HintSize="264,368">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <enbda:LogInstantEmailSuccessful LogInstantEmailStatus="{x:Null}" EmailBody="[EmailBody]" Endpoint="[Endpoint]" sap:VirtualizedContainerService.HintSize="242,22" LeadData="[LeadData]" RDQ="[RealtimeDeliveryItem]" />
+          <enbda:RemoveRDQItem RemoveRDQItemStatus="{x:Null}" sap:VirtualizedContainerService.HintSize="242,22" IsBeta="[IsBeta]" RDQ="[RealtimeDeliveryItem]" />
+          <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="310" DeliveryEndpointId="[Endpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="242,22" LeadData="[LeadData]" Message="Removing RDQ Item" Verbosity="5" />
+          <Assign DisplayName="Assign Return Status" sap:VirtualizedContainerService.HintSize="242,58">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Int32">[RealtimeEmailDeliveryStatus]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Int32">600</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Failed Email Sequence" sap:VirtualizedContainerService.HintSize="264,368">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <enbda:LogInstantEmailFailed EmailBody="{x:Null}" RDQ="{x:Null}" Endpoint="[Endpoint]" sap:VirtualizedContainerService.HintSize="242,22" LeadData="[LeadData]" />
+          <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="320" DeliveryEndpointId="[Endpoint.DeliveryEndpointId]" DeliveryEngineEventId="10" sap:VirtualizedContainerService.HintSize="242,22" LeadData="[LeadData]" Message="Email Failed" Verbosity="5" />
+          <Assign DisplayName="Assign Return Status" sap:VirtualizedContainerService.HintSize="242,58">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Int32">[RealtimeEmailDeliveryStatus]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Int32">515</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>

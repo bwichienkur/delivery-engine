@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e5bae283-8843-4f97-987a-03b80badde65" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/BatchLeadDeliveryWorkflowService.xamlx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BatchLeadDeliveryWorkflowService.xsd" MetadataType="Schema" ID="02cb0f0f-41a2-4129-9791-8d7ca1c59766" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/BatchLeadDeliveryWorkflowService.xamlx?xsd=xsd1" />
+    <MetadataFile FileName="BatchLeadDeliveryWorkflowService1.xsd" MetadataType="Schema" ID="a34ff28c-e4b7-4853-bc10-b0a2af2705c1" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/BatchLeadDeliveryWorkflowService.xamlx?xsd=xsd0" />
+    <MetadataFile FileName="BatchLeadDeliveryWorkflowService.disco" MetadataType="Disco" ID="712f49dd-6577-4275-8bb0-53930e052529" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/BatchLeadDeliveryWorkflowService.xamlx?disco" />
+    <MetadataFile FileName="BatchLeadDeliveryWorkflowService.wsdl" MetadataType="Wsdl" ID="f735a479-de4a-471f-895c-9c456171301d" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/BatchLeadDeliveryWorkflowService.xamlx?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

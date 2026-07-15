@@ -1,0 +1,2 @@
+RealtimeEndpointWF.g.xaml
+XamlStaticHelperNamespace._XamlStaticHelper

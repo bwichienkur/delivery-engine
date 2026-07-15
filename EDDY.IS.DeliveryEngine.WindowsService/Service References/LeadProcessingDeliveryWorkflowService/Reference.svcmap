@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3558108e-aa24-4e98-9d7b-a8107844b3d5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/LeadProcessingDeliveryWorkflowService.xamlx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="LeadProcessingDeliveryWorkflowService.xsd" MetadataType="Schema" ID="808163b2-8c1d-4848-954a-ebcf738e4508" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/LeadProcessingDeliveryWorkflowService.xamlx?xsd=xsd0" />
+    <MetadataFile FileName="LeadProcessingDeliveryWorkflowService1.xsd" MetadataType="Schema" ID="ad9e9be8-89e6-47ef-a362-e895501523cf" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/LeadProcessingDeliveryWorkflowService.xamlx?xsd=xsd2" />
+    <MetadataFile FileName="LeadProcessingDeliveryWorkflowService2.xsd" MetadataType="Schema" ID="e26b7b38-25bb-4863-8f78-4cc110ee4189" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/LeadProcessingDeliveryWorkflowService.xamlx?xsd=xsd1" />
+    <MetadataFile FileName="DeliveryService.wsdl" MetadataType="Wsdl" ID="d93191eb-dccc-4b53-a84b-772fea66aff0" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/LeadProcessingDeliveryWorkflowService.xamlx?wsdl" />
+    <MetadataFile FileName="LeadProcessingDeliveryWorkflowService3.xsd" MetadataType="Schema" ID="a893cc7c-68e3-4249-b22a-efe18b40e44b" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/LeadProcessingDeliveryWorkflowService.xamlx?xsd=xsd3" />
+    <MetadataFile FileName="LeadProcessingDeliveryWorkflowService.disco" MetadataType="Disco" ID="fc12fca0-1d5c-4aba-9a4f-8398433234c0" SourceId="1" SourceUrl="http://cycle-issvc1/EDDY.IS.DeliveryEngine.Workflow.Service/LeadProcessingDeliveryWorkflowService.xamlx?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

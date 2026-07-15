@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<eidw:BatchDeliveryWF mva:VisualBasic.Settings="Assembly references and imported namespaces for internal implementation" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:eidw="clr-namespace:EDDY.IS.DeliveryEngine.Workflow;assembly=EDDY.IS.DeliveryEngine.Workflow" xmlns:enbda="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Activities;assembly=EDDY.IS.DeliveryEngine.Workflow.Activities" xmlns:enbha="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Activities.Helper;assembly=EDDY.IS.DeliveryEngine.Workflow.Activities" xmlns:enec="clr-namespace:EDDY.IS.DeliveryEngine.Entity;assembly=EDDY.IS.DeliveryEngine.Entity" xmlns:enec1="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Common;assembly=EDDY.IS.DeliveryEngine.Entity" xmlns:eneic="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Interface.Common;assembly=EDDY.IS.DeliveryEngine.Entity" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:s1="clr-namespace:System;assembly=System" xmlns:s2="clr-namespace:System;assembly=System.Xml" xmlns:s3="clr-namespace:System;assembly=System.Core" xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" xmlns:st="clr-namespace:System.Text;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <eidw:BatchDeliveryWF.Implementation>
+    <Sequence DisplayName="Batch Delivery Sequence" sad:XamlDebuggerXmlReader.FileName="C:\Work\Technology Management\Hoboken\Nexus\AdminHotFix\src\WorkFlow\DE\BatchDeliveryWF.xaml">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="enec:DeliveryLeadData[]" Name="Leads" />
+        <Variable x:TypeArguments="enec:DeliveryEndpoint" Name="DeliveryEndpoint" />
+        <Variable x:TypeArguments="x:String" Name="BatchFilePath" />
+        <Variable x:TypeArguments="x:Int32" Name="LeadDeliveryStatus" />
+      </Sequence.Variables>
+      <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="10" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="[&quot;Started BatchWF. Endpoint id:&quot; &amp; DeliveryEndpointId]" Verbosity="5" />
+      <enbda:CreateBatchDelivery BatchDeliveryId="[BatchDeliveryId]" DeliveryEndpointId="[DeliveryEndpointId]" ProductId="[ProductId]" />
+      <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="20" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="[&quot;Batch delivery record is created in db. Batch id:&quot; &amp; BatchDeliveryId]" Verbosity="3" />
+      <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="[&quot;Getting endpint data for endpoint id:&quot; &amp; DeliveryEndpointId]" Verbosity="5" />
+      <enbda:GetDeliveryEndpoint DeliveryEndpoint="[DeliveryEndpoint]" DeliveryEndpointId="[DeliveryEndpointId]" />
+      <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="[&quot;Received data for endpoint id:&quot; &amp; DeliveryEndpointId]" Verbosity="7" />
+      <If Condition="[IsNothing(DeliveryEndpoint)]" DisplayName="If Endpoint is not found.">
+        <If.Then>
+          <Sequence>
+            <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="No leads to process" Verbosity="1" />
+            <TerminateWorkflow Reason="[&quot;WF terminated. Endpoint with this id not found. Id:&quot; &amp; DeliveryEndpointId]" />
+          </Sequence>
+        </If.Then>
+      </If>
+      <If Condition="[DeliveryEndpoint.IsRealtime]" DisplayName="If endpoint is not bach">
+        <If.Then>
+          <Sequence>
+            <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="EndPoint passed is not RealTime" Verbosity="7" />
+            <TerminateWorkflow Reason="[&quot;WF Terminated. Selected endpoint:&quot; &amp; DeliveryEndpointId &amp; &quot; is not of type batch&quot;]" />
+          </Sequence>
+        </If.Then>
+      </If>
+      <Sequence>
+        <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="40" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="[&quot;Getting Leads For Batch:&quot; &amp; BatchDeliveryId]" Verbosity="5" />
+        <enbda:GetLeadsForBatch BatchDeliveryId="[BatchDeliveryId]" DeliveryLeadDataArray="[Leads]" />
+        <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="40" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="[&quot;Got list of leads for batch:&quot; &amp; BatchDeliveryId]" Verbosity="3" />
+        <If Condition="[Leads.Length = 0]">
+          <If.Then>
+            <Sequence>
+              <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="425" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="[&quot;WF Terminated. 0 Leads found for endpoint:&quot; &amp; DeliveryEndpointId &amp; &quot;. Batch id:&quot; &amp; BatchDeliveryId]" Verbosity="3" />
+            </Sequence>
+          </If.Then>
+        </If>
+        <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="50" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="[&quot;Processing &quot; &amp; Leads.Length &amp; &quot; leads.&quot;]" Verbosity="5" />
+        <TryCatch>
+          <TryCatch.Try>
+            <Sequence>
+              <Sequence.Variables>
+                <Variable x:TypeArguments="scg3:List(enec:DeliveryLeadData)" Default="[New List(Of DeliveryLeadData)]" Name="LeadsToDeliver" />
+              </Sequence.Variables>
+              <ClearCollection x:TypeArguments="enec:DeliveryLeadData" Collection="[LeadsToDeliver]" DisplayName="ClearCollection&lt;DeliveryLeadData&gt;" />
+              <ForEach x:TypeArguments="enec:DeliveryLeadData" DisplayName="ForEach&lt;DeliveryLeadData&gt;" Values="[Leads]">
+                <ActivityAction x:TypeArguments="enec:DeliveryLeadData">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="enec:DeliveryLeadData" Name="lead" />
+                  </ActivityAction.Argument>
+                  <Sequence>
+                    <TryCatch>
+                      <TryCatch.Try>
+                        <Sequence>
+                          <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="10" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="410" LeadData="[lead]" Message="[&quot;Processing batch lead:&quot; &amp; lead.LeadId]" Verbosity="5" />
+                          <enbda:LogBatchLead BatchId="[BatchDeliveryId]" LeadId="[lead.LeadId]" StatusId="100" />
+                          <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="20" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="410" Message="[&quot;Transforming data for lead id:&quot; &amp; lead.LeadId]" Verbosity="5" />
+                          <enbda:TransformData TransformedLeadData="{x:Null}" Endpoint="[DeliveryEndpoint]" RawLeadData="[lead]" />
+                          <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="410" Message="[&quot;Data transformed for lead:&quot; &amp; lead.LeadId]" Verbosity="3" />
+                          <AddToCollection x:TypeArguments="enec:DeliveryLeadData" Collection="[LeadsToDeliver]" DisplayName="AddToCollection&lt;DeliveryLeadData&gt;" Item="[lead]" />
+                        </Sequence>
+                      </TryCatch.Try>
+                      <TryCatch.Catches>
+                        <Catch x:TypeArguments="s:Exception">
+                          <ActivityAction x:TypeArguments="s:Exception">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                            </ActivityAction.Argument>
+                            <Sequence>
+                              <enbda:WriteToDELog DeliveryEngineEventId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="100" DeliveryEndpointId="[DeliveryEndpointId]" LeadData="[lead]" Message="[&quot;Error processing batch lead: &quot; &amp; lead.LeadId &amp; &quot;. &quot; &amp; exception.Message()]" Verbosity="1" />
+                              <enbda:LogBatchLead BatchId="[BatchDeliveryId]" LeadId="[lead.LeadId]" StatusId="555" />
+                              <enbha:ExceptionLoggingActivity Ex="[exception]" />
+                            </Sequence>
+                          </ActivityAction>
+                        </Catch>
+                      </TryCatch.Catches>
+                    </TryCatch>
+                  </Sequence>
+                </ActivityAction>
+              </ForEach>
+              <Assign>
+                <Assign.To>
+                  <OutArgument x:TypeArguments="enec:DeliveryLeadData[]">[Leads]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="enec:DeliveryLeadData[]">[LeadsToDeliver.ToArray()]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <WriteLine Text="[&quot;Processing BatchDelivery: &quot; + BatchDeliveryId.ToString() + &quot; - Found &quot; + Leads.Length.ToString() + &quot; Leads&quot;]" />
+              <WriteLine Text="[&quot;Found Endpoint: &quot; + DeliveryEndpoint.EndpointName]" />
+              <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="60" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="All leads for batch transformed. Creating file." Verbosity="5" />
+              <enbda:CreateBatchLeadFile BatchDeliveryId="[BatchDeliveryId]" DeliveryEndpoint="[DeliveryEndpoint]" FilePath="[BatchFilePath]" LeadArray="[Leads]" />
+              <WriteLine Text="[&quot;Batch File created. Saved to: &quot; + BatchFilePath]" />
+              <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="61" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" Message="[&quot;Batch file created:&quot; &amp; BatchFilePath]" Verbosity="5" />
+              <Switch x:TypeArguments="enec:LeadDeliveryType" Expression="[DeliveryEndpoint.DeliveryType]">
+                <Sequence x:Key="BatchEmail" DisplayName="Deliver Batch Email Sequence">
+                  <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="470" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="440" Message="[&quot;Delivering Batch Email. File: &quot; &amp; BatchFilePath]" Verbosity="5" />
+                  <enbda:DeliverBatchEmail BatchFilePath="[BatchFilePath]" Endpoint="[DeliveryEndpoint]" ProductId="[ProductId]" Success="[Success]" />
+                  <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="471" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="440" Message="Deliver Batch email complete" Verbosity="3" />
+                  <WriteLine Text="[&quot;Deliver Batch Email to: &quot; + CType(DeliveryEndpoint, BatchEmailEndpoint).LiveEmailTo]" />
+                </Sequence>
+                <Sequence x:Key="BatchFtp">
+                  <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="480" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="440" DisplayName=" WriteToDELog" Message="[&quot;Delivering Batch FTP. File: &quot; &amp; BatchFilePath]" Verbosity="5" />
+                  <enbda:DeliverBatchFTP BatchFilePath="[BatchFilePath]" Endpoint="[DeliveryEndpoint]" Success="[Success]" />
+                  <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="481" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="440" Message="Deliver Batch FTP complete" Verbosity="5" />
+                  <WriteLine Text="[&quot;Deliver Batch FTP to: &quot; + CType(DeliveryEndpoint, BatchFtpEndpoint).URI]" />
+                </Sequence>
+              </Switch>
+              <If Condition="[Success]">
+                <If.Then>
+                  <Sequence>
+                    <ForEach x:TypeArguments="enec:DeliveryLeadData" DisplayName="ForEach&lt;DeliveryLeadData&gt;" Values="[Leads]">
+                      <ActivityAction x:TypeArguments="enec:DeliveryLeadData">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="enec:DeliveryLeadData" Name="lead" />
+                        </ActivityAction.Argument>
+                        <Sequence>
+                          <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="445" LeadData="[lead]" Message="Updating Batch lead record" Verbosity="7" />
+                          <enbda:LogBatchLead BatchId="[BatchDeliveryId]" LeadId="[lead.LeadId]" StatusId="200" />
+                          <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="460" LeadData="[lead]" Message="[&quot;Updating batch leadid: &quot; &amp; lead.LeadId &amp; &quot; status to success&quot;]" Verbosity="7" />
+                          <enbda:UpdateStatusForBatchIfPrimaryDelivery Endpoint="[DeliveryEndpoint]" LeadId="[lead.LeadId]" Success="[Success]" />
+                          <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="460" LeadData="[lead]" Message="[&quot;Update batch leadid: &quot; &amp; lead.LeadId &amp; &quot; status to success - completed&quot;]" Verbosity="7" />
+                        </Sequence>
+                      </ActivityAction>
+                    </ForEach>
+                    <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="495" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="450" Message="[&quot;Updating abatch record. Batch id:&quot; &amp; BatchDeliveryId]" Verbosity="7" />
+                    <enbda:LogBatchSent LogBatchDeliveryComplete="{x:Null}" BatchFileName="[BatchFilePath]" BatchId="[BatchDeliveryId]" Endpoint="[DeliveryEndpoint]" LeadCount="[Leads.Length]" />
+                    <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="497" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="450" Message="[&quot;Batch record updated. Batch id:&quot; &amp; BatchDeliveryId]" Verbosity="5" />
+                    <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="499" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="499" Message="[&quot;Batch delivery complete. Batch id:&quot; &amp; BatchDeliveryId &amp; &quot;. Endpoint id:&quot; &amp; DeliveryEndpointId]" Verbosity="3" />
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <Sequence>
+                    <ForEach x:TypeArguments="enec:DeliveryLeadData" DisplayName="ForEach&lt;DeliveryLeadData&gt;" Values="[Leads]">
+                      <ActivityAction x:TypeArguments="enec:DeliveryLeadData">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="enec:DeliveryLeadData" Name="lead" />
+                        </ActivityAction.Argument>
+                        <Sequence>
+                          <enbda:WriteToDELog Verbosity="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="460" LeadData="[lead]" Message="[&quot;Updating batch leadId: &quot; &amp; lead.LeadId &amp; &quot; status to Failure&quot;]" />
+                          <enbda:UpdateStatusForBatchIfPrimaryDelivery Endpoint="[DeliveryEndpoint]" LeadId="[lead.LeadId]" Success="[Success]" />
+                          <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="460" LeadData="[lead]" Message="[&quot;Update batch leadid: &quot; &amp; lead.LeadId &amp; &quot; status to Failure - completed&quot;]" Verbosity="7" />
+                        </Sequence>
+                      </ActivityAction>
+                    </ForEach>
+                    <Throw Exception="[New InvalidOperationException(&quot;Batch file not delivered. BatchId:&quot; &amp; BatchDeliveryId &amp; &quot;. DeliveryEndpointId:&quot; &amp; DeliveryEndpointId)]" />
+                  </Sequence>
+                </If.Else>
+              </If>
+            </Sequence>
+          </TryCatch.Try>
+          <TryCatch.Catches>
+            <Catch x:TypeArguments="s:Exception">
+              <ActivityAction x:TypeArguments="s:Exception">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                </ActivityAction.Argument>
+                <Sequence>
+                  <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="999" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="999" Message="[&quot;Error in batch delivery. &quot; &amp; exception.Message]" Verbosity="1" />
+                  <enbha:ExceptionLoggingActivity Ex="[exception]" />
+                </Sequence>
+              </ActivityAction>
+            </Catch>
+          </TryCatch.Catches>
+        </TryCatch>
+      </Sequence>
+    </Sequence>
+  </eidw:BatchDeliveryWF.Implementation>
+</eidw:BatchDeliveryWF>

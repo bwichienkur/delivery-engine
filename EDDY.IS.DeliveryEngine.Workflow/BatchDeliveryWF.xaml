@@ -1,0 +1,299 @@
+﻿<Activity mc:Ignorable="sap sads" x:Class="EDDY.IS.DeliveryEngine.Workflow.BatchDeliveryWF"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:enbda="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Activities;assembly=EDDY.IS.DeliveryEngine.Workflow.Activities"
+ xmlns:enbha="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Activities.Helper;assembly=EDDY.IS.DeliveryEngine.Workflow.Activities"
+ xmlns:enec="clr-namespace:EDDY.IS.DeliveryEngine.Entity;assembly=EDDY.IS.DeliveryEngine.Entity"
+ xmlns:enec1="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Common;assembly=EDDY.IS.DeliveryEngine.Entity"
+ xmlns:eneic="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Interface.Common;assembly=EDDY.IS.DeliveryEngine.Entity"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:s1="clr-namespace:System;assembly=System"
+ xmlns:s2="clr-namespace:System;assembly=System.Xml"
+ xmlns:s3="clr-namespace:System;assembly=System.Core"
+ xmlns:s4="clr-namespace:System;assembly=System.ServiceModel"
+ xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+ xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System"
+ xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"
+ xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core"
+ xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sl="clr-namespace:System.Linq;assembly=System.Core"
+ xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="DeliveryEndpointId" Type="InArgument(x:Int32)" />
+    <x:Property Name="BatchDeliveryId" Type="OutArgument(x:Int32)" />
+    <x:Property Name="Success" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="EndPoint" Type="OutArgument(enec:DeliveryEndpoint)" />
+    <x:Property Name="ProductId" Type="InArgument(x:Int32)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>767,5350</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence DisplayName="Batch Delivery Sequence" sad:XamlDebuggerXmlReader.FileName="C:\Work\Technology Management\Hoboken\Nexus\AdminHotFix\src\WorkFlow\DE\BatchDeliveryWF.xaml" sap:VirtualizedContainerService.HintSize="727,5310">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="enec:DeliveryLeadData[]" Name="Leads" />
+      <Variable x:TypeArguments="enec:DeliveryEndpoint" Name="DeliveryEndpoint" />
+      <Variable x:TypeArguments="x:String" Name="BatchFilePath" />
+      <Variable x:TypeArguments="x:Int32" Name="LeadDeliveryStatus" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="10" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="705,22" Message="[&quot;Started BatchWF. Endpoint id:&quot; &amp; DeliveryEndpointId]" Verbosity="5" />
+    <enbda:CreateBatchDelivery BatchDeliveryId="[BatchDeliveryId]" DeliveryEndpointId="[DeliveryEndpointId]" sap:VirtualizedContainerService.HintSize="705,22" ProductId="[ProductId]" />
+    <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="20" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="705,22" Message="[&quot;Batch delivery record is created in db. Batch id:&quot; &amp; BatchDeliveryId]" Verbosity="3" />
+    <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="705,22" Message="[&quot;Getting endpint data for endpoint id:&quot; &amp; DeliveryEndpointId]" Verbosity="5" />
+    <enbda:GetDeliveryEndpoint DeliveryEndpoint="[DeliveryEndpoint]" DeliveryEndpointId="[DeliveryEndpointId]" sap:VirtualizedContainerService.HintSize="705,22" />
+    <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="705,22" Message="[&quot;Received data for endpoint id:&quot; &amp; DeliveryEndpointId]" Verbosity="7" />
+    <If Condition="[IsNothing(DeliveryEndpoint)]" DisplayName="If Endpoint is not found." sap:VirtualizedContainerService.HintSize="705,316">
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="222,208">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="200,22" Message="No leads to process" Verbosity="1" />
+          <TerminateWorkflow sap:VirtualizedContainerService.HintSize="200,22" Reason="[&quot;WF terminated. Endpoint with this id not found. Id:&quot; &amp; DeliveryEndpointId]" />
+        </Sequence>
+      </If.Then>
+    </If>
+    <If Condition="[DeliveryEndpoint.IsRealtime]" DisplayName="If endpoint is not bach" sap:VirtualizedContainerService.HintSize="705,316">
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="222,208">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="200,22" Message="EndPoint passed is not RealTime" Verbosity="7" />
+          <TerminateWorkflow sap:VirtualizedContainerService.HintSize="200,22" Reason="[&quot;WF Terminated. Selected endpoint:&quot; &amp; DeliveryEndpointId &amp; &quot; is not of type batch&quot;]" />
+        </Sequence>
+      </If.Then>
+    </If>
+    <Sequence sap:VirtualizedContainerService.HintSize="705,4102">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg3:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="40" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="683,22" Message="[&quot;Getting Leads For Batch:&quot; &amp; BatchDeliveryId]" Verbosity="5" />
+      <enbda:GetLeadsForBatch BatchDeliveryId="[BatchDeliveryId]" DeliveryLeadDataArray="[Leads]" sap:VirtualizedContainerService.HintSize="683,22" />
+      <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="40" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="683,22" Message="[&quot;Got list of leads for batch:&quot; &amp; BatchDeliveryId]" Verbosity="3" />
+      <If Condition="[Leads.Length = 0]" sap:VirtualizedContainerService.HintSize="683,254">
+        <If.Then>
+          <Sequence sap:VirtualizedContainerService.HintSize="222,146">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg3:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="425" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="200,22" Message="[&quot;WF Terminated. 0 Leads found for endpoint:&quot; &amp; DeliveryEndpointId &amp; &quot;. Batch id:&quot; &amp; BatchDeliveryId]" Verbosity="3" />
+          </Sequence>
+        </If.Then>
+      </If>
+      <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="50" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="683,22" Message="[&quot;Processing &quot; &amp; Leads.Length &amp; &quot; leads.&quot;]" Verbosity="5" />
+      <TryCatch sap:VirtualizedContainerService.HintSize="683,3436">
+        <TryCatch.Try>
+          <Sequence sap:VirtualizedContainerService.HintSize="665,3249">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="scg3:List(enec:DeliveryLeadData)" Default="[New List(Of DeliveryLeadData)]" Name="LeadsToDeliver" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg3:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ClearCollection x:TypeArguments="enec:DeliveryLeadData" Collection="[LeadsToDeliver]" DisplayName="ClearCollection&lt;DeliveryLeadData&gt;" sap:VirtualizedContainerService.HintSize="643,22" />
+            <ForEach x:TypeArguments="enec:DeliveryLeadData" DisplayName="ForEach&lt;DeliveryLeadData&gt;" sap:VirtualizedContainerService.HintSize="643,875" Values="[Leads]">
+              <ActivityAction x:TypeArguments="enec:DeliveryLeadData">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="enec:DeliveryLeadData" Name="lead" />
+                </ActivityAction.Argument>
+                <Sequence sap:VirtualizedContainerService.HintSize="440,767">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <TryCatch sap:VirtualizedContainerService.HintSize="418,643">
+                    <TryCatch.Try>
+                      <Sequence sap:VirtualizedContainerService.HintSize="222,456">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg3:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="10" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="410" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[lead]" Message="[&quot;Processing batch lead:&quot; &amp; lead.LeadId]" Verbosity="5" />
+                        <enbda:LogBatchLead BatchId="[BatchDeliveryId]" sap:VirtualizedContainerService.HintSize="200,22" LeadId="[lead.LeadId]" StatusId="100" />
+                        <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="20" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="410" sap:VirtualizedContainerService.HintSize="200,22" Message="[&quot;Transforming data for lead id:&quot; &amp; lead.LeadId]" Verbosity="5" />
+                        <enbda:TransformData TransformedLeadData="{x:Null}" Endpoint="[DeliveryEndpoint]" sap:VirtualizedContainerService.HintSize="200,22" RawLeadData="[lead]" />
+                        <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="30" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="410" sap:VirtualizedContainerService.HintSize="200,22" Message="[&quot;Data transformed for lead:&quot; &amp; lead.LeadId]" Verbosity="3" />
+                        <AddToCollection x:TypeArguments="enec:DeliveryLeadData" Collection="[LeadsToDeliver]" DisplayName="AddToCollection&lt;DeliveryLeadData&gt;" sap:VirtualizedContainerService.HintSize="200,22" Item="[lead]" />
+                      </Sequence>
+                    </TryCatch.Try>
+                    <TryCatch.Catches>
+                      <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg3:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ActivityAction x:TypeArguments="s:Exception">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                          </ActivityAction.Argument>
+                          <Sequence sap:VirtualizedContainerService.HintSize="222,270">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg3:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <enbda:WriteToDELog DeliveryEngineEventId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="100" DeliveryEndpointId="[DeliveryEndpointId]" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[lead]" Message="[&quot;Error processing batch lead: &quot; &amp; lead.LeadId &amp; &quot;. &quot; &amp; exception.Message()]" Verbosity="1" />
+                            <enbda:LogBatchLead BatchId="[BatchDeliveryId]" sap:VirtualizedContainerService.HintSize="200,22" LeadId="[lead.LeadId]" StatusId="555" />
+                            <enbha:ExceptionLoggingActivity Ex="[exception]" sap:VirtualizedContainerService.HintSize="200,22" />
+                          </Sequence>
+                        </ActivityAction>
+                      </Catch>
+                    </TryCatch.Catches>
+                  </TryCatch>
+                </Sequence>
+              </ActivityAction>
+            </ForEach>
+            <Assign sap:VirtualizedContainerService.HintSize="643,60">
+              <Assign.To>
+                <OutArgument x:TypeArguments="enec:DeliveryLeadData[]">[Leads]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="enec:DeliveryLeadData[]">[LeadsToDeliver.ToArray()]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <WriteLine sap:VirtualizedContainerService.HintSize="643,61" Text="[&quot;Processing BatchDelivery: &quot; + BatchDeliveryId.ToString() + &quot; - Found &quot; + Leads.Length.ToString() + &quot; Leads&quot;]" />
+            <WriteLine sap:VirtualizedContainerService.HintSize="643,61" Text="[&quot;Found Endpoint: &quot; + DeliveryEndpoint.EndpointName]" />
+            <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="60" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="643,22" Message="All leads for batch transformed. Creating file." Verbosity="5" />
+            <enbda:CreateBatchLeadFile BatchDeliveryId="[BatchDeliveryId]" DeliveryEndpoint="[DeliveryEndpoint]" FilePath="[BatchFilePath]" sap:VirtualizedContainerService.HintSize="643,22" LeadArray="[Leads]" />
+            <WriteLine sap:VirtualizedContainerService.HintSize="643,61" Text="[&quot;Batch File created. Saved to: &quot; + BatchFilePath]" />
+            <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="61" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="400" sap:VirtualizedContainerService.HintSize="643,22" Message="[&quot;Batch file created:&quot; &amp; BatchFilePath]" Verbosity="5" />
+            <Switch x:TypeArguments="enec:LeadDeliveryType" Expression="[DeliveryEndpoint.DeliveryType]" sap:VirtualizedContainerService.HintSize="643,537">
+              <Sequence x:Key="BatchEmail" DisplayName="Deliver Batch Email Sequence" sap:VirtualizedContainerService.HintSize="233,371">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="470" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="440" sap:VirtualizedContainerService.HintSize="211,22" Message="[&quot;Delivering Batch Email. File: &quot; &amp; BatchFilePath]" Verbosity="5" />
+                <enbda:DeliverBatchEmail BatchFilePath="[BatchFilePath]" Endpoint="[DeliveryEndpoint]" sap:VirtualizedContainerService.HintSize="211,22" ProductId="[ProductId]" Success="[Success]" />
+                <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="471" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="440" sap:VirtualizedContainerService.HintSize="211,22" Message="Deliver Batch email complete" Verbosity="3" />
+                <WriteLine sap:VirtualizedContainerService.HintSize="211,61" Text="[&quot;Deliver Batch Email to: &quot; + CType(DeliveryEndpoint, BatchEmailEndpoint).LiveEmailTo]" />
+              </Sequence>
+              <Sequence x:Key="BatchFtp" sap:VirtualizedContainerService.HintSize="233,371">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="480" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="440" DisplayName=" WriteToDELog" sap:VirtualizedContainerService.HintSize="211,22" Message="[&quot;Delivering Batch FTP. File: &quot; &amp; BatchFilePath]" Verbosity="5" />
+                <enbda:DeliverBatchFTP BatchFilePath="[BatchFilePath]" Endpoint="[DeliveryEndpoint]" sap:VirtualizedContainerService.HintSize="211,22" Success="[Success]" />
+                <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="481" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="440" sap:VirtualizedContainerService.HintSize="211,22" Message="Deliver Batch FTP complete" Verbosity="5" />
+                <WriteLine sap:VirtualizedContainerService.HintSize="211,61" Text="[&quot;Deliver Batch FTP to: &quot; + CType(DeliveryEndpoint, BatchFtpEndpoint).URI]" />
+              </Sequence>
+            </Switch>
+            <If Condition="[Success]" sap:VirtualizedContainerService.HintSize="643,982">
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="309,874">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ForEach x:TypeArguments="enec:DeliveryLeadData" DisplayName="ForEach&lt;DeliveryLeadData&gt;" sap:VirtualizedContainerService.HintSize="287,502" Values="[Leads]">
+                    <ActivityAction x:TypeArguments="enec:DeliveryLeadData">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="enec:DeliveryLeadData" Name="lead" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="222,394">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg3:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="445" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[lead]" Message="Updating Batch lead record" Verbosity="7" />
+                        <enbda:LogBatchLead BatchId="[BatchDeliveryId]" sap:VirtualizedContainerService.HintSize="200,22" LeadId="[lead.LeadId]" StatusId="200" />
+                        <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="460" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[lead]" Message="[&quot;Updating batch leadid: &quot; &amp; lead.LeadId &amp; &quot; status to success&quot;]" Verbosity="7" />
+                        <enbda:UpdateStatusForBatchIfPrimaryDelivery Endpoint="[DeliveryEndpoint]" sap:VirtualizedContainerService.HintSize="200,22" LeadId="[lead.LeadId]" Success="[Success]" />
+                        <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="460" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[lead]" Message="[&quot;Update batch leadid: &quot; &amp; lead.LeadId &amp; &quot; status to success - completed&quot;]" Verbosity="7" />
+                      </Sequence>
+                    </ActivityAction>
+                  </ForEach>
+                  <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="495" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="450" sap:VirtualizedContainerService.HintSize="287,22" Message="[&quot;Updating abatch record. Batch id:&quot; &amp; BatchDeliveryId]" Verbosity="7" />
+                  <enbda:LogBatchSent LogBatchDeliveryComplete="{x:Null}" BatchFileName="[BatchFilePath]" BatchId="[BatchDeliveryId]" Endpoint="[DeliveryEndpoint]" sap:VirtualizedContainerService.HintSize="287,22" LeadCount="[Leads.Length]" />
+                  <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="497" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="450" sap:VirtualizedContainerService.HintSize="287,22" Message="[&quot;Batch record updated. Batch id:&quot; &amp; BatchDeliveryId]" Verbosity="5" />
+                  <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="499" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="499" sap:VirtualizedContainerService.HintSize="287,22" Message="[&quot;Batch delivery complete. Batch id:&quot; &amp; BatchDeliveryId &amp; &quot;. Endpoint id:&quot; &amp; DeliveryEndpointId]" Verbosity="3" />
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence sap:VirtualizedContainerService.HintSize="309,564">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ForEach x:TypeArguments="enec:DeliveryLeadData" DisplayName="ForEach&lt;DeliveryLeadData&gt;" sap:VirtualizedContainerService.HintSize="287,378" Values="[Leads]">
+                    <ActivityAction x:TypeArguments="enec:DeliveryLeadData">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="enec:DeliveryLeadData" Name="lead" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="257,270">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg3:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <enbda:WriteToDELog Verbosity="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="460" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[lead]" Message="[&quot;Updating batch leadId: &quot; &amp; lead.LeadId &amp; &quot; status to Failure&quot;]" />
+                        <enbda:UpdateStatusForBatchIfPrimaryDelivery Endpoint="[DeliveryEndpoint]" sap:VirtualizedContainerService.HintSize="200,22" LeadId="[lead.LeadId]" Success="[Success]" />
+                        <enbda:WriteToDELog WriteToDELogStatus="{x:Null}" ActivityStepId="490" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="460" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[lead]" Message="[&quot;Update batch leadid: &quot; &amp; lead.LeadId &amp; &quot; status to Failure - completed&quot;]" Verbosity="7" />
+                      </Sequence>
+                    </ActivityAction>
+                  </ForEach>
+                  <Throw Exception="[New InvalidOperationException(&quot;Batch file not delivered. BatchId:&quot; &amp; BatchDeliveryId &amp; &quot;. DeliveryEndpointId:&quot; &amp; DeliveryEndpointId)]" sap:VirtualizedContainerService.HintSize="287,22" />
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+        </TryCatch.Try>
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="669,21">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg3:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ActivityAction x:TypeArguments="s:Exception">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+              </ActivityAction.Argument>
+              <Sequence sap:VirtualizedContainerService.HintSize="663,208">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <enbda:WriteToDELog LeadData="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="999" DeliveryEndpointId="[DeliveryEndpointId]" DeliveryEngineEventId="999" sap:VirtualizedContainerService.HintSize="200,22" Message="[&quot;Error in batch delivery. &quot; &amp; exception.Message]" Verbosity="1" />
+                <enbha:ExceptionLoggingActivity Ex="[exception]" sap:VirtualizedContainerService.HintSize="200,22" />
+              </Sequence>
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+      </TryCatch>
+    </Sequence>
+  </Sequence>
+</Activity>

@@ -1,0 +1,2 @@
+InstantDeliveryWF.g.xaml
+XamlStaticHelperNamespace._XamlStaticHelper

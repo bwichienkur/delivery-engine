@@ -1,0 +1,100 @@
+﻿<WorkflowService mc:Ignorable="sap" ConfigurationName="LeadPreviewDeliveryWorkflowService" 
+		sap:VirtualizedContainerService.HintSize="466,557" 
+		Name="LeadPreviewDeliveryWorkflowService" 
+		mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" 
+		xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel" 
+		xmlns:ecdd="clr-namespace:EDDY.IS.DeliveryEngine.Workflow;assembly=EDDY.IS.DeliveryEngine.Workflow" 
+		xmlns:enbda="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Activities;assembly=EDDY.IS.DeliveryEngine.Workflow.Activities" 
+		xmlns:enec="clr-namespace:EDDY.IS.DeliveryEngine.Entity;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:enec1="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:eneic="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Interface.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" 
+		xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" 
+		xmlns:p="http://schemas.microsoft.com/netfx/2009/xaml/activities" 
+		xmlns:s="clr-namespace:System;assembly=mscorlib" 
+		xmlns:s1="clr-namespace:System;assembly=System" 
+		xmlns:s2="clr-namespace:System;assembly=System.Xml" 
+		xmlns:s3="clr-namespace:System;assembly=System.Core" 
+		xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" 
+		xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" 
+		xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" 
+		xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" 
+		xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" 
+		xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System" 
+		xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" 
+		xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=System.Core" 
+		xmlns:sd="clr-namespace:System.Data;assembly=System.Data" 
+		xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" 
+		xmlns:ssa="clr-namespace:System.ServiceModel.Activities;assembly=System.ServiceModel.Activities" 
+		xmlns:st="clr-namespace:System.Text;assembly=mscorlib" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p:Sequence DisplayName="Sequential Service" sad:XamlDebuggerXmlReader.FileName="C:\Projects\Delivery\src\Svc\WorkFlow\DE\LeadPreviewDeliveryWorkflowService.xamlx" sap:VirtualizedContainerService.HintSize="436,527" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+    <p:Sequence.Variables>
+      <p:Variable x:TypeArguments="enec:DeliveryLeadData" Name="_LeadData" />
+      <p:Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="_Result" />
+      <p:Variable x:TypeArguments="CorrelationHandle" Name="__handle1" />
+    </p:Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <p:TryCatch sap:VirtualizedContainerService.HintSize="418,655">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <p:TryCatch.Try>
+        <p:Sequence sap:VirtualizedContainerService.HintSize="400,468">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Receive x:Name="__ReferenceID0" CanCreateInstance="True" sap:VirtualizedContainerService.HintSize="255,90" OperationName="ProcessPreview" ServiceContractName="ILeadPreviewWorkflowNewService">
+            <Receive.CorrelationInitializers>
+              <RequestReplyCorrelationInitializer CorrelationHandle="[__handle1]" />
+            </Receive.CorrelationInitializers>
+            <ReceiveParametersContent>
+              <p:OutArgument x:TypeArguments="enec:DeliveryLeadData" x:Key="LeadData">[_LeadData]</p:OutArgument>
+            </ReceiveParametersContent>
+          </Receive>
+          <ecdd:RealtimePreviewWF sap:VirtualizedContainerService.HintSize="255,22" LeadData="[_LeadData]" Result="[_Result]" />
+          <enbda:WriteToDELog DeliveryEngineEventId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="100" DeliveryEndpointId="1" sap:VirtualizedContainerService.HintSize="255,22" LeadData="[_LeadData]" Message="Begining Lead Preview" Verbosity="100" />
+          <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendReplyToReceive" sap:VirtualizedContainerService.HintSize="255,90">
+            <SendParametersContent>
+              <p:InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="Result">[_Result]</p:InArgument>
+            </SendParametersContent>
+          </SendReply>
+        </p:Sequence>
+      </p:TryCatch.Try>
+      <p:TryCatch.Catches>
+        <p:Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <p:ActivityAction x:TypeArguments="s:Exception">
+            <p:ActivityAction.Argument>
+              <p:DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </p:ActivityAction.Argument>
+            <p:Sequence sap:VirtualizedContainerService.HintSize="394,208">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <enbda:WriteToDELog DeliveryEndpointId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="99" DeliveryEngineEventId="990" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[_LeadData]" Message="[&quot;Something wrong while trying PreView&quot; + _LeadData.LeadId.ToString()]" Verbosity="2" />
+              <enbda:FinalizeLeadPreview RealtimeDeliveryStatusUpdated="{x:Null}" sap:VirtualizedContainerService.HintSize="200,22" LeadId="[_LeadData.LeadId]" LeadRealtimeDeliveryStatus="255" />
+            </p:Sequence>
+          </p:ActivityAction>
+        </p:Catch>
+      </p:TryCatch.Catches>
+    </p:TryCatch>
+  </p:Sequence>
+</WorkflowService>

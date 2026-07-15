@@ -1,0 +1,136 @@
+﻿<WorkflowService mc:Ignorable="sap" ConfigurationName="DeliveryService" 
+		sap:VirtualizedContainerService.HintSize="556.8,2076.8" 
+		Name="DeliveryService" 
+		mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" 
+		xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel" 
+		xmlns:ecdd="clr-namespace:EDDY.IS.DeliveryEngine.Workflow;assembly=EDDY.IS.DeliveryEngine.Workflow" 
+		xmlns:ecdwa="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Service.Activities;assembly=EDDY.IS.DeliveryEngine.Workflow.Service" 
+		xmlns:enbda="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Activities;assembly=EDDY.IS.DeliveryEngine.Workflow.Activities" 
+		xmlns:enec="clr-namespace:EDDY.IS.DeliveryEngine.Entity;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:enec1="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:eneic="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Interface.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" 
+		xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" 
+		xmlns:p="http://schemas.microsoft.com/netfx/2009/xaml/activities" 
+		xmlns:s="clr-namespace:System;assembly=mscorlib" 
+		xmlns:s1="clr-namespace:System;assembly=System" 
+		xmlns:s2="clr-namespace:System;assembly=System.Xml" 
+		xmlns:s3="clr-namespace:System;assembly=System.Core" 
+		xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" 
+		xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" 
+		xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" 
+		xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" 
+		xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" 
+		xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" 
+		xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" 
+		xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" 
+		xmlns:sd="clr-namespace:System.Data;assembly=System.Data" 
+		xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" 
+		xmlns:st="clr-namespace:System.Text;assembly=mscorlib" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p:Sequence DisplayName="Sequential Service" sad:XamlDebuggerXmlReader.FileName="C:\TFS_NEXUS\Nexus\LeadDeliveryVerification\src\Svc\WorkFlow\DE\LeadProcessingDeliveryWorkflowService.xamlx" sap:VirtualizedContainerService.HintSize="527.2,2047.2" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+    <p:Sequence.Variables>
+      <p:Variable x:TypeArguments="enec:DeliveryLeadData" Name="_LeadData" />
+      <p:Variable x:TypeArguments="x:Int32" Name="_LeadScore" />
+      <p:Variable x:TypeArguments="x:Boolean" Name="_Success" />
+      <p:Variable x:TypeArguments="x:Int32" Name="_LeadStatusId" />
+      <p:Variable x:TypeArguments="x:Boolean" Default="False" Name="_ProcessCap" />
+      <p:Variable x:TypeArguments="x:Boolean" Default="False" Name="_ScoreLead" />
+      <p:Variable x:TypeArguments="x:Boolean" Default="False" Name="_DeliverLead" />
+      <p:Variable x:TypeArguments="x:Int32" Name="_SchoolValidationResponseStatus" />
+    </p:Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <p:TryCatch sap:VirtualizedContainerService.HintSize="504,1921.6">
+      <p:TryCatch.Try>
+        <p:Sequence sap:VirtualizedContainerService.HintSize="486.4,1729.6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Receive CanCreateInstance="True" sap:VirtualizedContainerService.HintSize="464,92.8" OperationName="ProcessLeads" ServiceContractName="ILeadProcessingDeliveryWorkflowService">
+            <ReceiveParametersContent>
+              <p:OutArgument x:TypeArguments="enec:DeliveryLeadData" x:Key="LeadData">[_LeadData]</p:OutArgument>
+            </ReceiveParametersContent>
+          </Receive>
+          <ecdwa:InsertTransactionDetail inAdditionalInfo="{x:Null}" sap:VirtualizedContainerService.HintSize="464,22.4" inActivityStepId="180" inTransactionId="[_LeadData.TransactionId]" />
+          <ecdwa:SeLeadProcessingConfigurationValues DeliverLead="[_DeliverLead]" sap:VirtualizedContainerService.HintSize="464,22.4" LeadData="[_LeadData]" ProcessCap="[_ProcessCap]" ScoreLead="[_ScoreLead]" />
+          <p:If Condition="[_ScoreLead]" DisplayName="If _ScoreLead" sap:VirtualizedContainerService.HintSize="464,380.8">
+            <p:If.Then>
+              <p:Sequence DisplayName="Lead Scoring Sequence" sap:VirtualizedContainerService.HintSize="280,272">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ecdwa:WriteToEventLog sap:VirtualizedContainerService.HintSize="200,22.4" LogEntry="Scoring Lead" />
+                <ecdwa:ScoreLead sap:VirtualizedContainerService.HintSize="200,22.4" inLeadData="[_LeadData]" outLeadScore="[_LeadScore]" />
+                <ecdwa:InsertTransactionDetail inAdditionalInfo="{x:Null}" sap:VirtualizedContainerService.HintSize="200,22.4" inActivityStepId="190" inTransactionId="[_LeadData.TransactionId]" />
+              </p:Sequence>
+            </p:If.Then>
+          </p:If>
+          <p:If Condition="[_ProcessCap]" DisplayName="If _ProcessCap" sap:VirtualizedContainerService.HintSize="464,380.8">
+            <p:If.Then>
+              <p:Sequence DisplayName="Process Cap Sequence" sap:VirtualizedContainerService.HintSize="280,272">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ecdwa:WriteToEventLog sap:VirtualizedContainerService.HintSize="200,22.4" LogEntry="Processing Cap" />
+                <ecdwa:ProcessCap sap:VirtualizedContainerService.HintSize="200,22.4" inLeadData="[_LeadData]" outSuccess="[_Success]" />
+                <ecdwa:InsertTransactionDetail inAdditionalInfo="{x:Null}" sap:VirtualizedContainerService.HintSize="200,22.4" inActivityStepId="200" inTransactionId="[_LeadData.TransactionId]" />
+              </p:Sequence>
+            </p:If.Then>
+          </p:If>
+          <p:If Condition="[_DeliverLead]" DisplayName="If _DeliverLead" sap:VirtualizedContainerService.HintSize="464,505.6">
+            <p:If.Then>
+              <p:Sequence DisplayName="Deliver Lead Sequence" sap:VirtualizedContainerService.HintSize="280,396.8">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ecdwa:WriteToEventLog sap:VirtualizedContainerService.HintSize="200,22.4" LogEntry="[&quot;Delivering Lead Id:&quot; &amp; _LeadData.LeadId]" />
+                <ecdd:InstantDeliveryWF sap:VirtualizedContainerService.HintSize="200,22.4" LeadData="[_LeadData]" LeadRealtimeDeliveryStatus="[_LeadStatusId]" SchoolValidationResponseStatus="[_SchoolValidationResponseStatus]" />
+                <enbda:FinalizeLeadDelivery RealtimeDeliveryStatusUpdated="{x:Null}" sap:VirtualizedContainerService.HintSize="200,22.4" LeadId="[_LeadData.LeadId]" LeadRealtimeDeliveryStatus="[_LeadStatusId]" SchoolValidationResponseStatus="[_SchoolValidationResponseStatus]" />
+                <ecdwa:InsertTransactionDetail inAdditionalInfo="{x:Null}" sap:VirtualizedContainerService.HintSize="200,22.4" inActivityStepId="360" inTransactionId="[_LeadData.TransactionId]" />
+                <enbda:WriteToDELog DeliveryEndpointId="{x:Null}" WriteToDELogStatus="{x:Null}" ActivityStepId="1000" DeliveryEngineEventId="100" sap:VirtualizedContainerService.HintSize="200,22.4" LeadData="[_LeadData]" Message="[&quot;This is the final activity for this lead:&quot; &amp; _LeadData.LeadId]" Verbosity="1" />
+              </p:Sequence>
+            </p:If.Then>
+          </p:If>
+        </p:Sequence>
+      </p:TryCatch.Try>
+      <p:TryCatch.Catches>
+        <p:Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="489.6,22.4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <p:ActivityAction x:TypeArguments="s:Exception">
+            <p:ActivityAction.Argument>
+              <p:DelegateInArgument x:TypeArguments="s:Exception" Name="_Exception" />
+            </p:ActivityAction.Argument>
+            <p:Sequence sap:VirtualizedContainerService.HintSize="484,270">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg3:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <enbda:FinalizeLeadDelivery RealtimeDeliveryStatusUpdated="{x:Null}" sap:VirtualizedContainerService.HintSize="200,22" LeadId="[_LeadData.LeadId]" LeadRealtimeDeliveryStatus="555" SchoolValidationResponseStatus="[_SchoolValidationResponseStatus]" />
+              <enbda:WriteToDELog ActivityStepId="{x:Null}" DeliveryEndpointId="{x:Null}" DeliveryEngineEventId="{x:Null}" WriteToDELogStatus="{x:Null}" sap:VirtualizedContainerService.HintSize="200,22" LeadData="[_LeadData]" Message="[_Exception.Message()]" Verbosity="1" />
+              <ecdwa:ExceptionLoggingActivity Ex="[_Exception]" sap:VirtualizedContainerService.HintSize="200,22" />
+            </p:Sequence>
+          </p:ActivityAction>
+        </p:Catch>
+      </p:TryCatch.Catches>
+    </p:TryCatch>
+  </p:Sequence>
+</WorkflowService>

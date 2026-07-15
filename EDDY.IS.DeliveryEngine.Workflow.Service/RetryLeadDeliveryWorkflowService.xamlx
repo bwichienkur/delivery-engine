@@ -1,0 +1,88 @@
+﻿<WorkflowService mc:Ignorable="sap" ConfigurationName="RetryDeliveryService" 
+		sap:VirtualizedContainerService.HintSize="466,424" 
+		Name="RetryDeliveryService" 
+		mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" 
+		xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel" 
+		xmlns:ecdd="clr-namespace:EDDY.IS.DeliveryEngine.Workflow;assembly=EDDY.IS.DeliveryEngine.Workflow" 
+		xmlns:ecdwa="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Service.Activities;assembly=EDDY.IS.DeliveryEngine.Workflow.Service" 
+		xmlns:enbda="clr-namespace:EDDY.IS.DeliveryEngine.Workflow.Activities;assembly=EDDY.IS.DeliveryEngine.Workflow.Activities" 
+		xmlns:enec="clr-namespace:EDDY.IS.DeliveryEngine.Entity;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:enec1="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:ened="clr-namespace:EDDY.IS.DeliveryEngine.Entity;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:eneic="clr-namespace:EDDY.IS.DeliveryEngine.Entity.Interface.Common;assembly=EDDY.IS.DeliveryEngine.Entity" 
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" 
+		xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" 
+		xmlns:p="http://schemas.microsoft.com/netfx/2009/xaml/activities" 
+		xmlns:s="clr-namespace:System;assembly=mscorlib" 
+		xmlns:s1="clr-namespace:System;assembly=System" 
+		xmlns:s2="clr-namespace:System;assembly=System.Xml" 
+		xmlns:s3="clr-namespace:System;assembly=System.Core" 
+		xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" 
+		xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" 
+		xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" 
+		xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" 
+		xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" 
+		xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" 
+		xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" 
+		xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" 
+		xmlns:sd="clr-namespace:System.Data;assembly=System.Data" 
+		xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" 
+		xmlns:st="clr-namespace:System.Text;assembly=mscorlib" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p:Sequence DisplayName="Sequential Service" sad:XamlDebuggerXmlReader.FileName="C:\Projects\Delivery\src\Svc\WorkFlow\DE\RetryLeadDeliveryWorkflowService.xamlx" sap:VirtualizedContainerService.HintSize="436,307" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+    <p:Sequence.Variables>
+      <p:Variable x:TypeArguments="enec:DeliveryLeadData" Name="_LeadData" />
+      <p:Variable x:TypeArguments="ened:RealtimeDeliveryQueueItem" Name="_RealtimeDeliveryQueueItem" />
+      <p:Variable x:TypeArguments="ened:DeliveryEndpoint" Name="_DeliveryEndpoint" />
+      <p:Variable x:TypeArguments="x:Int32" Name="_RealTimeEndpointDeliveryStatusId" />
+      <p:Variable x:TypeArguments="x:Int32" Name="_SchoolValidationResponseStatus" />
+    </p:Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <p:TryCatch sap:VirtualizedContainerService.HintSize="418,649">
+      <p:TryCatch.Try>
+        <p:Sequence sap:VirtualizedContainerService.HintSize="400,462">
+          <p:Sequence.Variables>
+            <p:Variable x:TypeArguments="x:Int32" Name="_DeliveryEndpointId" />
+          </p:Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Receive CanCreateInstance="True" sap:VirtualizedContainerService.HintSize="255,90" OperationName="RetryProcessLeads" ServiceContractName="IRetryLeadDeliveryWorkflowService">
+            <ReceiveParametersContent>
+              <p:OutArgument x:TypeArguments="ened:RealtimeDeliveryQueueItem" x:Key="RealtimeDeliveryQueueItem">[_RealtimeDeliveryQueueItem]</p:OutArgument>
+              <p:OutArgument x:TypeArguments="enec:DeliveryLeadData" x:Key="LeadData">[_LeadData]</p:OutArgument>
+              <p:OutArgument x:TypeArguments="x:Int32" x:Key="DeliveryEndpointId">[_DeliveryEndpointId]</p:OutArgument>
+            </ReceiveParametersContent>
+          </Receive>
+          <enbda:GetDeliveryEndpoint DeliveryEndpoint="[_DeliveryEndpoint]" DeliveryEndpointId="[_DeliveryEndpointId]" sap:VirtualizedContainerService.HintSize="255,22" />
+          <ecdd:RealtimeEndpointWF DeliveryEndpoint="[_DeliveryEndpoint]" sap:VirtualizedContainerService.HintSize="255,22" LeadData="[_LeadData]" RDQItem="[_RealtimeDeliveryQueueItem]" RealtimeEndpointDeliveryStatus="[_RealTimeEndpointDeliveryStatusId]" SchoolValidationResponseStatus="[_SchoolValidationResponseStatus]" />
+          <ecdwa:InsertTransactionDetail inAdditionalInfo="{x:Null}" sap:VirtualizedContainerService.HintSize="255,22" inActivityStepId="520" inTransactionId="[_LeadData.TransactionId]" />
+          <enbda:WriteToDELog ActivityStepId="{x:Null}" DeliveryEngineEventId="{x:Null}" Verbosity="{x:Null}" WriteToDELogStatus="{x:Null}" DeliveryEndpointId="[_DeliveryEndpoint.DeliveryEndpointId]" sap:VirtualizedContainerService.HintSize="255,22" LeadData="[_LeadData]" Message="This is the final activity in the retry workflow processing." />
+        </p:Sequence>
+      </p:TryCatch.Try>
+      <p:TryCatch.Catches>
+        <p:Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <p:ActivityAction x:TypeArguments="s:Exception">
+            <p:ActivityAction.Argument>
+              <p:DelegateInArgument x:TypeArguments="s:Exception" Name="_Exception" />
+            </p:ActivityAction.Argument>
+            <ecdwa:ExceptionLoggingActivity Ex="[_Exception]" sap:VirtualizedContainerService.HintSize="398,75" />
+          </p:ActivityAction>
+        </p:Catch>
+      </p:TryCatch.Catches>
+    </p:TryCatch>
+  </p:Sequence>
+</WorkflowService>
